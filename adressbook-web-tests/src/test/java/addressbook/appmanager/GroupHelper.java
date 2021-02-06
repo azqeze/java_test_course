@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 public class GroupHelper {
 
     private WebDriver wd;
+
     public GroupHelper(WebDriver wd) {
         this.wd = wd;
     }
