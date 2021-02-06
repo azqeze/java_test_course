@@ -37,7 +37,7 @@ public class AddContactTest {
     }
 
     private void gotoHome() {
-        wd.findElement(By.linkText("home")).click();
+        wd.findElement(By.linkText("home page")).click();
     }
 
     private void submitNewContactForm() {
