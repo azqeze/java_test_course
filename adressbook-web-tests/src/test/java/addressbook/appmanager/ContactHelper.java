@@ -10,7 +10,7 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
-    public void backtoHome() {
+    public void backtoHomeFromContactCreate() {
         click(By.linkText("home page"));
     }
 
