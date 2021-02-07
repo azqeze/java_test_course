@@ -2,10 +2,10 @@ package addressbook.tests;
 
 import org.testng.annotations.Test;
 
-public class DeleteGroupTest extends TestBase {
+public class GroupDeleteTest extends TestBase {
 
     @Test
-    public void testDeleteGroup() throws Exception {
+    public void testGroupDelete() throws Exception {
         app.getNavigationHelper().gotoGroupPage();
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().deleteSelectedGroup();
