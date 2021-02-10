@@ -11,11 +11,7 @@ public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
-
-    public void backtoHomeFromContactUpdate() {
-        click(By.linkText("home page"));
-    }
-
+    
     public void submitNewContactForm() {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
