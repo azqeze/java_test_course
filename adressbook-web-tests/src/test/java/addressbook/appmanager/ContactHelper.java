@@ -1,8 +1,10 @@
 package addressbook.appmanager;
 
 import addressbook.model.ContactData;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class ContactHelper extends HelperBase {
 
@@ -18,12 +20,17 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
-    public void fillContactForm(ContactData contactData) {
+    public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getName());
         type(By.name("lastname"), contactData.getFamily());
         type(By.name("address"), contactData.getAddress());
         type(By.name("home"), contactData.getNumber());
         type(By.name("email"), contactData.getEmail());
+        if (creation) {
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(ContactData.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void gotoAddNewContactPage() {
