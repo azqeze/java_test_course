@@ -9,7 +9,7 @@ public class TestBase {
 
     protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp() throws Exception {
         app.init();
     }
