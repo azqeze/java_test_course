@@ -4,7 +4,12 @@ import addressbook.model.ContactData;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ContactHelper extends HelperBase {
 
@@ -45,8 +50,8 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void startContactModification() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void startContactModification(int index) {
+        wd.findElements(By.xpath("(//img[@alt='Edit'])")).get(index).click();
     }
 
     public void submitContactModification() {
@@ -66,5 +71,28 @@ public class ContactHelper extends HelperBase {
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<ContactData>();
+
+        // Находим строки в контактах где name = entry
+        List<WebElement> strings = wd.findElements(By.name("entry"));
+        for (WebElement string : strings) {
+            //Находим каждый блок в строке
+            List<WebElement> blocks = string.findElements(By.tagName("td"));
+            //А вот тут сложна, нам надо как-то из определенных блоков в строке получить текст
+            //4 часа страдаем, после чего смотрим как сделано у Лёши
+            //Ещё час страдаем разбираясь как у него оно работает и делаем по аналогии
+            //Пока делал по аналогии засадил баг, ещё пару часов искал где конкретно, памагити
+            if (blocks.size() >= 3) {
+                String family = blocks.get(1).getText();
+                String name = blocks.get(2).getText();
+                int id = Integer.parseInt(string.findElement(By.tagName("input")).getAttribute("value"));
+                ContactData contact = new ContactData(id, name, family, null, null, null, null);
+                contacts.add(contact);
+            }
+        }
+        return contacts;
     }
 }
